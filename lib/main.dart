@@ -12,10 +12,10 @@ class Quizzler extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: QuizPage(),
-          ),
-        ),
-      ),
-    );
+          ), // Padding
+        ), // SafeArea
+      ), // Scaffold
+    ); // MaterialApp
   }
 }
 
@@ -25,6 +25,8 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,11 +44,11 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
+                ), // TextStyle
+              ), // Text
+            ), // Center
+          ), // Padding
+        ), // Expanded
         Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
@@ -58,14 +60,21 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
-                ),
-              ),
+                ), // TextStyle
+              ), // Text
               onPressed: () {
-                //The user picked true.
+                setState(() {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ), // Icon
+                  ); // add
+                });
               },
-            ),
-          ),
-        ),
+            ), // FlatButton
+          ), // Padding
+        ), // Expanded
         Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
@@ -76,17 +85,26 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
-                ),
-              ),
+                ), // TextStyle
+              ), // Text
               onPressed: () {
-                //The user picked false.
+                setState(() {
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ), // Icon
+                  ); // add
+                });
               },
-            ),
-          ),
-        ),
-        //TODO: Add a Row here as your score keeper
+            ), // FlatButton
+          ), // Padding
+        ), // Expanded
+        Row(
+          children: scoreKeeper,
+        ), // Row
       ],
-    );
+    ); // Column
   }
 }
 
