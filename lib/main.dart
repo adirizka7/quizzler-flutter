@@ -32,6 +32,8 @@ class _QuizPageState extends State<QuizPage> {
     'A slug\'s blood is green.'
   ];
 
+  List<bool> answers = [false, true, true];
+
   int questionNumber = 0;
 
   @override
@@ -70,17 +72,31 @@ class _QuizPageState extends State<QuizPage> {
                 ), // TextStyle
               ), // Text
               onPressed: () {
-                setState(() {
-                  if (questionNumber < 2) {
-                    questionNumber += 1;
-                  }
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ), // Icon
-                  ); // add
-                });
+                setState(
+                  () {
+                    bool correctAnswer = answers[questionNumber] == true;
+
+                    if (correctAnswer) {
+                      scoreKeeper.add(
+                        Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ), // Icon
+                      ); // add
+                    } else {
+                      scoreKeeper.add(
+                        Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ), // Icon
+                      ); // add
+                    }
+
+                    if (questionNumber < answers.length - 1) {
+                      questionNumber += 1;
+                    }
+                  },
+                ); // setState
               },
             ), // FlatButton
           ), // Padding
@@ -98,18 +114,31 @@ class _QuizPageState extends State<QuizPage> {
                 ), // TextStyle
               ), // Text
               onPressed: () {
-                setState(() {
-                  if (questionNumber < 2) {
-                    questionNumber += 1;
-                  }
+                setState(
+                  () {
+                    bool correctAnswer = answers[questionNumber] == false;
 
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ), // Icon
-                  ); // add
-                });
+                    if (correctAnswer) {
+                      scoreKeeper.add(
+                        Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ), // Icon
+                      ); // add
+                    } else {
+                      scoreKeeper.add(
+                        Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ), // Icon
+                      ); // add
+                    }
+
+                    if (questionNumber < answers.length - 1) {
+                      questionNumber += 1;
+                    }
+                  },
+                ); // setState
               },
             ), // FlatButton
           ), // Padding
