@@ -2,7 +2,7 @@ class Question {
   String text;
   bool answer;
 
-  Question({String q, bool a}) {
+  Question(q, a) {
     text = q;
     answer = a;
   }
