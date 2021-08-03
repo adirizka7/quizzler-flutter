@@ -30,8 +30,6 @@ class _QuizPageState extends State<QuizPage> {
 
   QuizBrain quizBrain = QuizBrain();
 
-  int questionNumber = 0;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questions[questionNumber].text,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -70,8 +68,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(
                   () {
-                    bool correctAnswer =
-                        quizBrain.questions[questionNumber].answer == true;
+                    bool correctAnswer = quizBrain.getQuestionAnswer() == true;
 
                     if (correctAnswer) {
                       scoreKeeper.add(
@@ -89,9 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                       ); // add
                     }
 
-                    if (questionNumber < quizBrain.questions.length - 1) {
-                      questionNumber += 1;
-                    }
+                    quizBrain.nextQuestion();
                   },
                 ); // setState
               },
@@ -113,8 +108,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(
                   () {
-                    bool correctAnswer =
-                        quizBrain.questions[questionNumber].answer == false;
+                    bool correctAnswer = quizBrain.getQuestionAnswer() == false;
 
                     if (correctAnswer) {
                       scoreKeeper.add(
@@ -132,9 +126,7 @@ class _QuizPageState extends State<QuizPage> {
                       ); // add
                     }
 
-                    if (questionNumber < quizBrain.questions.length - 1) {
-                      questionNumber += 1;
-                    }
+                    quizBrain.nextQuestion();
                   },
                 ); // setState
               },
