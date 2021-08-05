@@ -30,6 +30,26 @@ class _QuizPageState extends State<QuizPage> {
 
   QuizBrain quizBrain = QuizBrain();
 
+  void checkAnswer(bool answer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+
+    setState(() {
+      if (answer == correctAnswer) {
+        scoreKeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        )); // add
+      } else {
+        scoreKeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        )); // add
+      }
+    });
+
+    quizBrain.nextQuestion();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,29 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                 ), // TextStyle
               ), // Text
               onPressed: () {
-                setState(
-                  () {
-                    bool correctAnswer = quizBrain.getQuestionAnswer() == true;
-
-                    if (correctAnswer) {
-                      scoreKeeper.add(
-                        Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        ), // Icon
-                      ); // add
-                    } else {
-                      scoreKeeper.add(
-                        Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        ), // Icon
-                      ); // add
-                    }
-
-                    quizBrain.nextQuestion();
-                  },
-                ); // setState
+                checkAnswer(true);
               },
             ), // FlatButton
           ), // Padding
@@ -106,29 +104,7 @@ class _QuizPageState extends State<QuizPage> {
                 ), // TextStyle
               ), // Text
               onPressed: () {
-                setState(
-                  () {
-                    bool correctAnswer = quizBrain.getQuestionAnswer() == false;
-
-                    if (correctAnswer) {
-                      scoreKeeper.add(
-                        Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        ), // Icon
-                      ); // add
-                    } else {
-                      scoreKeeper.add(
-                        Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        ), // Icon
-                      ); // add
-                    }
-
-                    quizBrain.nextQuestion();
-                  },
-                ); // setState
+                checkAnswer(false);
               },
             ), // FlatButton
           ), // Padding
