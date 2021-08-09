@@ -47,11 +47,9 @@ class QuizBrain {
 
   bool isFinished() {
     if (_questionNumber == _questions.length - 1) {
-      print('true');
       return true;
     }
     return false;
-    print('false');
   }
 
   void reset() {
